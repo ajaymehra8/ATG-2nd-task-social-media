@@ -82,6 +82,7 @@ const LogHomePage = () => {
           alignItems="center"
           width="40vw"
           overflow={"auto"}
+          minH={"100vh"}
           style={{
             position: "fixed",
             top: "30px",

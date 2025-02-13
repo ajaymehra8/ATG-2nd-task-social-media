@@ -10,33 +10,41 @@ import {
   Flex,
   Avatar,
   Text,
-  Box
+  Box,
 } from "@chakra-ui/react";
 
-const Comment = ({comment}) => {
+const Comment = ({ comment }) => {
   return (
     <Card
-      direction={{ base: "column", sm: "row" }}
+      direction={"row"}
       overflow="hidden"
       variant="outline"
       p={2}
-      mb={'10px'}
+      mb={"10px"}
     >
-      {comment&&<Box display="flex" flexDirection="column" gap={2} alignItems={'center'} justifyContent="center"  width={'50px!important'}>
-            <Avatar name={comment?.user?.name} src={comment?.user?.pic} mb={0} />
+      {comment && (
+        <Box
+          display="flex"
+          flexDirection="column"
+          gap={2}
+          alignItems={"center"}
+          justifyContent="center"
+          width={"50px!important"}
+        >
+          <Avatar name={comment?.user?.name} src={comment?.user?.pic} mb={0} />
 
-         
-              <Text size="lg" mt={"-10px"}>{comment?.user?.name.split(" ")[0]}</Text>
-            
-          </Box>}
-
-        <CardBody>
-          <Text >
-          {comment?.text?.charAt(0).toUpperCase()+comment?.text?.slice(1).toLowerCase()}
+          <Text size="lg" mt={"-10px"}>
+            {comment?.user?.name.split(" ")[0]}
           </Text>
-        </CardBody>
+        </Box>
+      )}
 
-        
+      <CardBody>
+        <Text>
+          {comment?.text?.charAt(0).toUpperCase() +
+            comment?.text?.slice(1).toLowerCase()}
+        </Text>
+      </CardBody>
     </Card>
   );
 };

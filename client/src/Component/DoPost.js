@@ -76,12 +76,11 @@ const DoPost = () => {
         display={"flex"}
         justifyContent={"flex-start"}
         bg={"white"}
-        w="40vw"
+        width={"clamp(300px,55vw,550px)"}
         p={3}
         m="10px 0 25px 0"
         borderRadius={"lg"}
         borderWidth={"1px"}
-        minWidth={"400px"}
         gap={3}
       >
         <Avatar

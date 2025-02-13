@@ -1,13 +1,14 @@
 import axios from 'axios';
 
 export const doPostApi=async(post,user,token)=>{
-if(!post.text&&!post.image){
+if(!post.text && !post.image){
     return {
         success:false,
         message:"Please provide any content in your post"
     }
 }
 const form=new FormData();
+if(post.text)
 form.append('text', post.text);
 if(post.image){
     form.append('image', post.image);

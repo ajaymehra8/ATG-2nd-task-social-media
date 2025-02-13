@@ -166,7 +166,7 @@ const Post = ({ post, deleteMyPost,setPosts }) => {
   }, [posts]);
 
   return (
-    <Card width={"40vw"} minWidth={"400px"}>
+    <Card width={"clamp(300px,55vw,550px)"} >
       <CardHeader>
         <Flex spacing="4">
           <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
@@ -198,7 +198,7 @@ const Post = ({ post, deleteMyPost,setPosts }) => {
           )}
         </Flex>
       </CardHeader>
-      <CardBody>{post.text && <Text>{post.text}</Text>}</CardBody>
+      {post.text && <CardBody><Text>{post.text}</Text></CardBody>}
       {post.image && (
         <Image
           src={post.image}
