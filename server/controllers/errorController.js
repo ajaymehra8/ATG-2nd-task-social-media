@@ -47,6 +47,7 @@ const sendErrProd = (err, req, res) => {
         message: err.message,
       });
     } else {
+      console.log(err);
       //Programming or other unknown error:don't leak error details
 
       //1) log error
@@ -55,7 +56,7 @@ const sendErrProd = (err, req, res) => {
       //2)SEND  A GEenric message
       res.json({
 success:false,
-        message: 'Something went wrong',
+        message: err.message||'Something went wrong',
       });
     }
   } else {

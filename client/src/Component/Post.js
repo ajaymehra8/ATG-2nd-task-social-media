@@ -84,7 +84,7 @@ const Post = ({ post, deleteMyPost,setPosts }) => {
       },
     };
     const alreadyLiked = likeM.some(
-      (like) => like.user._id === user._id && like.post === post._id
+      (like) => like.user?._id === user?._id && like?.post === post?._id
     );
     if (!alreadyLiked) {
       const { data } = await axios.post(
@@ -107,7 +107,7 @@ const Post = ({ post, deleteMyPost,setPosts }) => {
       } else {
         toast({
           title: data.message,
-          status: "success",
+          status: "error",
           duration: 5000,
           isClosable: true,
           position: "top",
@@ -176,7 +176,7 @@ const Post = ({ post, deleteMyPost,setPosts }) => {
               <Heading size="sm">{post?.user?.name}</Heading>
             </Box>
           </Flex>
-          {user._id === post?.user?._id && (
+          {user?._id === post?.user?._id && (
             <>
               <IconButton
                 variant="ghost"

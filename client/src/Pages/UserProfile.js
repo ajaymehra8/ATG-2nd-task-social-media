@@ -20,9 +20,8 @@ const UserProfile = () => {
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);
   const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
-  const [newPassword, setNewPassword] = useState();
-  const [pic, setPic] = useState();
+  
+  const [pic, setPic] = useState(null);
   const [click, setClick] = useState("profile");
   const [loading, setLoading] = useState(false);
   const toast = useToast();
@@ -30,9 +29,11 @@ const UserProfile = () => {
   const handleRes = () => {
     setShowBar(!showBar);
   };
-  const updateMe = useCallback(async () => {
+  const updateMe = async () => {
     setLoading(true);
     const form = new FormData();
+    console.log(name,pic);
+    if(name)
     form.append("name", name);
 
     if (pic) {
@@ -68,7 +69,7 @@ const UserProfile = () => {
       });
     }
     setLoading(false);
-  }, [token]);
+  };
 
   const deleteMyPost = async (post) => {
     const config = {
@@ -144,13 +145,13 @@ const UserProfile = () => {
         <Box
           display={{ base: showBar ? "flex" : "none", md: "flex" }}
           flexDirection={"column"}
-          p={3}
+          padding={3}
           bg={"#f8f8f8"}
-          w={"20%"}
-          h={"100%"}
+          minW={'150px'}
+          width={"20%"}
+          height={{base:"20vh",lg:"80vh"}}
           borderRadius={"lg"}
           overflowY={"hidden"}
-          height={"80vh"}
           className="resOption"
         >
           <Stack>
@@ -163,9 +164,11 @@ const UserProfile = () => {
               borderRadius={"lg"}
               onClick={() => {
                 setClick("profile");
+                handleRes();
+
               }}
             >
-              <Text>My Profile</Text>
+              <Text fontSize={"clamp(10px,4vw,20px)"}>My Profile</Text>
             </Box>
             <Box
               cursor={"pointer"}
@@ -175,8 +178,11 @@ const UserProfile = () => {
               py={2}
               borderRadius={"lg"}
               onClick={() => {
+
                 fetchmyPost();
                 setClick("posts");
+                handleRes();
+
               }}
             >
               <Text>My Posts</Text>
@@ -202,14 +208,14 @@ const UserProfile = () => {
                 <FormLabel>Name</FormLabel>
                 <Input
                   placeholder={user?.name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={name}
+                  onChange={(e) => {console.log(e.target.value);setName(e.target.value)}}
                 />
               </FormControl>
               <FormControl id="email" isRequired>
                 <FormLabel>Email</FormLabel>
                 <Input
                   placeholder={user?.email}
-                  onChange={(e) => setEmail(e.target.value)}
                   isReadOnly
                 />
               </FormControl>
@@ -248,16 +254,17 @@ const UserProfile = () => {
             h={"100%"}
             borderRadius={"lg"}
             overflowX={"hidden"}
-            overflowY={"scroll"}
+            overflowY={"auto"}
             height={"80vh"}
             position={"relative"}
           >
             <Text
               fontSize={"40px"}
               style={{
-                position: "fixed",
-                top: "90px",
+                position: "absolute",
+                top: "0",
                 zIndex: "1",
+                alignSelf:"center",
                 textAlign: "center",
               }}
               background={"#f8f8f8"}
@@ -275,9 +282,9 @@ const UserProfile = () => {
               w={"100%"}
               mt={"150px"}
             >
-              {myPost.map((post) => (
+              {myPost.length>0?myPost.map((post) => (
                 <Post post={post} deleteMyPost={() => deleteMyPost(post)} setPosts={setMyPost}/>
-              ))}
+              )):(<h1 style={{alignSelf:"center",fontSize:"clamp(35px,4vw,45px)",fontWeight:"500"}}>No post yet</h1>)}
             </Box>
           </Box>
         )}

@@ -1,4 +1,4 @@
-import React, { useEffect ,useState} from "react";
+import React, { useCallback, useEffect ,useState} from "react";
 import Header from "../Component/Header";
 import DoPost from "../Component/DoPost";
 import { Box, useRangeSlider, useToast,Spinner } from "@chakra-ui/react";
@@ -12,7 +12,9 @@ const LogHomePage = () => {
   const { posts, setPosts, token } = useChange();
   const [loading,setLoading]=useState(false);
   const toast = useToast();
-  const fetchAllPost = async () => {
+  const fetchAllPost = useCallback( async () => {
+    console.log(token);
+    if(!token) return;
     setLoading(true);
     const data = await getAllPost(token);
     if (data.success) {
@@ -28,12 +30,14 @@ const LogHomePage = () => {
 
     }
     setLoading(false);
-  };
+  },[token]);
+
   useEffect(() => {
     fetchAllPost();
   }, []);
 
-  const deleteMyPost = async (post) => {
+  const deleteMyPost =useCallback( async (post) => {
+    if(!token) return;
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -47,8 +51,8 @@ const LogHomePage = () => {
       isClosable: true,
       position: "top",
     });
-    setPosts(posts.filter((p) => p._id !== post._id));
-  };
+    setPosts((prevPosts)=>prevPosts.filter((p) => p._id !== post._id));
+  },[token]);
 
   return (
     <div
@@ -86,9 +90,9 @@ const LogHomePage = () => {
           background="#E2E8F0"
         >
           <h1 style={{fontSize:"30px",marginTop:"20px",fontWeight:"500"}}>Trends for you</h1>
-         {data?.map(t=>{
+         {data?.map((t,ind)=>{
           
-          return <Trend trend={t}/>
+          return <Trend trend={t} key={ind}/>
          })}
         </Box>
 

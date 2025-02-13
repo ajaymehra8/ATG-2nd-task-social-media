@@ -62,7 +62,7 @@ const Signup = () => {
           position: "top",
         });
         localStorage.setItem("userInfo", JSON.stringify(data.user));
-        localStorage.setItem("token", JSON.stringify(data.token));
+        localStorage.setItem("token", data.token);
         setUser(data.user);
         setToken(data.token);
       } else {
@@ -94,7 +94,7 @@ const Signup = () => {
           onChange={(e) => setName(e.target.value)}
         />
       </FormControl>
-      <FormControl id="email" isRequired>
+      <FormControl id="email1" isRequired>
         <FormLabel>Email</FormLabel>
         <Input
           placeholder="Enter your email"
@@ -102,7 +102,7 @@ const Signup = () => {
         />
       </FormControl>
 
-      <FormControl id="password" isRequired>
+      <FormControl id="password1" isRequired>
         <FormLabel>Password</FormLabel>
         <InputGroup>
           <Input

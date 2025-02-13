@@ -46,7 +46,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   ) {
     token = req.headers.authorization.split(" ")[1];
   }
-
   if (!token) {
     return next(new AppError("You are not logged in ! Please login", 401));
   }
@@ -238,11 +237,14 @@ exports.verifyOtp = async (req, res, next) => {
 
 exports.updateMe=catchAsync(async(req,res)=>{
   const {name}=req.body;
-  
-  const fields={name};
+  const fields={};
+  if(name){
+fields.name=name;
+  }
   if (req.file) {
     fields.pic = req.file.filename;
   }
+  console.log(fields,"working");
 const user=await User.findByIdAndUpdate(req.params.id,fields,{new:true});
 
 res.status(200).json({

@@ -134,7 +134,7 @@ const Login = () => {
     <>
       {!forgotPassword ? (
         <VStack spacing={"5px"} color={"black"}>
-          <FormControl id="first-name" isRequired>
+          <FormControl id="email" isRequired>
             <FormLabel>Email</FormLabel>
             <Input
               placeholder="Enter your Email"
